@@ -8,12 +8,12 @@ const instalacion = caches.open(CACHE_NAME)
 
 return objeto.addAll([
     
-'./index.html',
-'./estilos.css',
-'./controller.js',
-'./img',
-'./models/',
-'./manifest.json'
+'index.html',
+'estilos.css',
+'controller.js',
+'img',
+'models/',
+'manifest.json'
 
 
 ]);
