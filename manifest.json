@@ -13,25 +13,25 @@
     "icons" : [
     
     {
-    "src" : "img/Logo_appx165.png",
+    "src" : "./img/Logo_appx165.png",
     "sizes" : "163x163",
     "type" : "image/png"
     },
     
     {
-    "src" : "img/Logo_appx115.png",
+    "src" : "./img/Logo_appx115.png",
     "sizes" : "113x113",
     "type" : "image/png"
     },
     
     {
-    "src" : "img/Logo_appx70.png",
+    "src" : "./img/Logo_appx70.png",
     "sizes" : "68x68",
     "type" : "image/png"
     },
     
     {
-    "src" : "img/Logo_appx45.png",
+    "src" : "./img/Logo_appx45.png",
     "sizes" : "43x43",
     "type" : "image/png"
     }
