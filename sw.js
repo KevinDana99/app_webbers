@@ -11,8 +11,7 @@ return objeto.addAll([
 './index.html',
 './estilos.css',
 './controller.js',
-'./img',
-'./models',
+'./img/logo2021.png',
 './manifest.json'
 
 
