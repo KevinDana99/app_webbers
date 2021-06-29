@@ -1,3 +1,4 @@
+import { RUTA_SERVER } from './Rutas.js';
 import {loginConfig} from "../controller.js";
 
 export default class User{
@@ -13,7 +14,7 @@ this.status = '';
 
 compruebaLogin = async () =>{
 
-const consulta = await fetch('fetch/server.php?comprobar=1');
+const consulta = await fetch(`${RUTA_SERVER}?comprobar=1`);
 const respuesta = await consulta.text();
 
 return parseInt(respuesta);
@@ -23,7 +24,7 @@ return parseInt(respuesta);
 
 autenticacion = async (user,pass) => {
 
-const consulta = await fetch(`fetch/server.php?AUTH=1&pass=${pass}&user=${user}`);
+const consulta = await fetch(`${RUTA_SERVER}?AUTH=1&pass=${pass}&user=${user}`);
 const respuesta = await consulta.json();
 
 if (respuesta.status[0] == 200){
@@ -52,7 +53,7 @@ this.renderHome(usuario);
 
 logout = async () =>{
   
-await fetch('fetch/server.php?AUTH=1&logout=1');
+await fetch(`${RUTA_SERVER}?AUTH=1&logout=1`);
 
 this.renderLogin();
 
@@ -90,7 +91,7 @@ this.status = '';
 
 getUser = async(session) =>{
 
-  const consulta = await fetch(`fetch/server.php?get_user=1&id_user=${session}`);
+  const consulta = await fetch(`${RUTA_SERVER}?get_user=1&id_user=${session}`);
     const respuesta = await consulta.json();
     
     return respuesta.usuario[0];

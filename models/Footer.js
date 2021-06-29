@@ -1,3 +1,5 @@
+
+import { RUTA_SERVER } from './Rutas.js';
 import Tabs from './Tabs.js';
 import View from './View.js';
 
@@ -76,7 +78,7 @@ view.renderView();
 requestApi = async (pagina) =>{
 
     console.log(this.session);
-const constulta = await fetch(`fetch/server.php?page=${pagina}&id_user=${this.session}`);
+const constulta = await fetch(`${RUTA_SERVER}?page=${pagina}&id_user=${this.session}`);
 
 const consulta = await constulta.json();
 
