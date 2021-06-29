@@ -12,7 +12,7 @@ return objeto.addAll([
 'estilos.css',
 'controller.js',
 'img',
-'models/',
+'models',
 'manifest.json'
 
 
