@@ -12,7 +12,8 @@ return objeto.addAll([
 './estilos.css',
 './controller.js',
 './img/logo2021.png',
-'./manifest.json'
+'./manifest.json',
+'./img/logo_appx165.png'
 
 
 ]);
