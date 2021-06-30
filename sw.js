@@ -53,6 +53,7 @@ return caches.delete(keys)
 });
 
 
+
 self.addEventListener('fetch', e => {
 
 e.respondWith(
@@ -72,6 +73,8 @@ return fetch(e.request);
 
 
 });
+
+
 
 self.addEventListener('push', e => {
     if (!(self.Notification && self.Notification.permission === 'granted')) {

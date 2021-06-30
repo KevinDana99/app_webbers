@@ -14,9 +14,14 @@ this.status = '';
 
 compruebaLogin = async () =>{
 
-const consulta = await fetch(`${RUTA_SERVER}?comprobar=1`);
+const consulta = await fetch(`${RUTA_SERVER}?comprobar=1`,{
+
+  credentials: "include"
+
+});
 const respuesta = await consulta.text();
 
+console.log(respuesta);
 return parseInt(respuesta);
 }
 
@@ -53,7 +58,7 @@ this.renderHome(usuario);
 
 logout = async () =>{
   
-await fetch(`${RUTA_SERVER}?AUTH=1&logout=1`);
+await fetch(`${RUTA_SERVER}?logout=1`);
 
 this.renderLogin();
 
@@ -93,7 +98,7 @@ getUser = async(session) =>{
 
   const consulta = await fetch(`${RUTA_SERVER}?get_user=1&id_user=${session}`);
     const respuesta = await consulta.json();
-    
+  
     return respuesta.usuario[0];
 
 }

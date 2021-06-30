@@ -82,6 +82,7 @@ const constulta = await fetch(`${RUTA_SERVER}?page=${pagina}&id_user=${this.sess
 
 const consulta = await constulta.json();
 
+
 return consulta;
 
 
