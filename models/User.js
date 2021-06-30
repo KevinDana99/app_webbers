@@ -21,7 +21,7 @@ const consulta = await fetch(`${RUTA_SERVER}?comprobar=1`,{
 });
 const respuesta = await consulta.text();
 
-console.log(respuesta);
+
 return parseInt(respuesta);
 }
 
@@ -29,7 +29,12 @@ return parseInt(respuesta);
 
 autenticacion = async (user,pass) => {
 
-const consulta = await fetch(`${RUTA_SERVER}?AUTH=1&pass=${pass}&user=${user}`);
+const consulta = await fetch(`${RUTA_SERVER}?AUTH=1&pass=${pass}&user=${user}`,{
+
+credentials: "include" 
+
+});
+
 const respuesta = await consulta.json();
 
 if (respuesta.status[0] == 200){
