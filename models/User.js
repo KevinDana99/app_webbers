@@ -63,11 +63,13 @@ this.renderHome(usuario);
 
 logout = async () =>{
   
-await fetch(`${RUTA_SERVER}?logout=1`, {
+const consulta = await fetch(`${RUTA_SERVER}?logout=1`, {
 
 credentials: "include"
 
 });
+
+const respuesta = await consulta.text();
 
 this.renderLogin();
 
