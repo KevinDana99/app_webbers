@@ -63,7 +63,11 @@ this.renderHome(usuario);
 
 logout = async () =>{
   
-await fetch(`${RUTA_SERVER}?logout=1`);
+await fetch(`${RUTA_SERVER}?logout=1`, {
+
+credentials: "include"
+
+});
 
 this.renderLogin();
 
