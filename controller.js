@@ -67,7 +67,7 @@ const footer = new Footer(session);
 
 //Inicializacion del service worker
 
-//navigator.serviceWorker.register('./sw.js');
+navigator.serviceWorker.register('./sw.js');
 
 
 
