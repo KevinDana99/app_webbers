@@ -71,6 +71,8 @@ credentials: "include"
 
 const respuesta = await consulta.text();
 
+console.log(respuesta);
+
 this.renderLogin();
 
 loginConfig();
