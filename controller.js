@@ -12,7 +12,7 @@ const session = await u.compruebaLogin();
 
 if (session > 0){
 
-await serviceWorkerNotifications(session);
+await notifications(session);
 
 const usuario = await u.getUser(session);
 
@@ -91,95 +91,96 @@ function convertUint8Array(base64String) {
 };
 
 
-
-async function serviceWorkerNotifications(idUser){
-
-await idUser;
-
-//Inicio del serviceWorker
-
 if (navigator.serviceWorker){
 
-  navigator.serviceWorker.register('sw.js').then(res => {
-  
+  navigator.serviceWorker.register('sw.js');
+
+  }
+
+
+
+
+async function notifications(idUser){
+
+  await idUser;
+
   if (window.Notification){
   
-  window.Notification.requestPermission().then(status =>{
-  
-  if (status == 'granted'){
-  
-  //Pregunta por la subscripcion
-  
-  res.pushManager.getSubscription().then(getSubscription =>{
-  
-  if (getSubscription == null){
-  
-    const convertedKey = convertUint8Array(PUBLIC_KEY);  
-  
-    res.pushManager.subscribe({
-  
-      userVisibleOnly: true,
-      applicationServerKey: convertedKey
-      
-      }).then(suscripcion => {
-      
-      sendSuscription(suscripcion, idUser);
-      
-      })
-  
-  
-      console.log('Se ha generado una nueva suscripcion');
-  
-  
-  }else{
-  
-    console.warn('La subscripcion no se pudo generar, ya que hay una subscripcion vigente');
-  }
-  
-  })
-  
-  
-  }else{
-  
-    console.error('Has denegado el permiso a notificaciones');
-  }
-  
+    window.Notification.requestPermission().then(status =>{
     
-  });
-  
-  }
-  
-  });
-  
-  }
-  
-  async function sendSuscription(subscripcion, idUser){
-
- await idUser;
+    if (status == 'granted'){
     
-const data = {subscripcion,idUser};
-
-  const consulta = await fetch(RUTA_SERVER, {
+    //Pregunta por la subscripcion
+    
+    res.pushManager.getSubscription().then(getSubscription =>{
+    
+    if (getSubscription == null){
+    
+      const convertedKey = convertUint8Array(PUBLIC_KEY);  
+    
+      res.pushManager.subscribe({
+    
+        userVisibleOnly: true,
+        applicationServerKey: convertedKey
+        
+        }).then(suscripcion => {
+        
+        sendSuscription(suscripcion, idUser);
+        
+        })
+    
+    
+        console.log('Se ha generado una nueva suscripcion');
+    
+    
+    }else{
+    
+      console.warn('La subscripcion no se pudo generar, ya que hay una subscripcion vigente');
+    }
+    
+    })
+    
+    
+    }else{
+    
+      console.error('Has denegado el permiso a notificaciones');
+    }
+    
+      
+    });
+    
+    }
   
-
-  credentials : 'include',  
-  method : 'POST',
-  headers : {
   
-  Accept : 'application/json',
-  
-  "Content-Type" : "application/json"
-  
-  },
-
-  body :  JSON.stringify(data),
-  
-  });
-  
-  const respuesta = await consulta.text();
-  
-  console.log(data);
-  }
-
   
 }
+
+
+async function sendSuscription(subscripcion, idUser){
+
+  await idUser;
+     
+ const data = {subscripcion,idUser};
+ 
+   const consulta = await fetch(RUTA_SERVER, {
+   
+ 
+   credentials : 'include',  
+   method : 'POST',
+   headers : {
+   
+   Accept : 'application/json',
+   
+   "Content-Type" : "application/json"
+   
+   },
+ 
+   body :  JSON.stringify(data),
+   
+   });
+   
+   const respuesta = await consulta.text();
+   
+   console.log(data);
+   }
+ 
