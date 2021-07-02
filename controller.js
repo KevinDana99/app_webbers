@@ -146,78 +146,8 @@ if (getSubscription == null){
 
 }
 
+sendSuscription = async (subscripcion) => {
 
-window.addEventListener('load', async () => {
-      
-  const subscripcionObtenida = await obtenerSuscripcion(69);
- 
-  sendNotification(subscripcionObtenida,"Has recibido una nueva factura");
- 
-
- });
-
-function sendSuscription(suscripcion){
-
-  textoJson = JSON.stringify({data : suscripcion});
-
-fetch('fetch/components/web-push-php-example-master/src/push_subscription.php',{
-
-  method: 'POST',
-  headers: {
-
-    Accept: 'application/json',
-    'Content-Type' : 'application/json'
-  },
-
-  body: textoJson
-
-}).then(res => res.text())
-.then(data => console.log(data));
-}
-
-
-async function obtenerSuscripcion(idUser){
-
-try {
-
-const consulta = await fetch('fetch/components/web-push-php-example-master/src/push_subscription.php?id_user=' + idUser, {
-
-})
-
-const res = await consulta.json();
-
-console.log(res);
-
-return res;
-
-}catch(error){
-
-console.error(error);
+console.log(subscripcion);
 
 }
-
-}
-
-
-
-function sendNotification(suscripcion , body){
-
-  let body_notificacion = body;
-  
-    textoJson = JSON.stringify({data : suscripcion , cuerpo : body_notificacion});
-  
-  fetch('fetch/components/web-push-php-example-master/src/send_push_notification.php',{
-  
-    method: 'POST',
-    headers: {
-  
-      Accept: 'application/json',
-      'Content-Type' : 'application/json'
-    },
-  
-    body: textoJson
-  
-  })
-  
-  }
-  
