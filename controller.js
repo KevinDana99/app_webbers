@@ -12,7 +12,7 @@ const session = await u.compruebaLogin();
 
 if (session > 0){
 
-await notifications(session);
+await notifications();
 
 const usuario = await u.getUser(session);
 
@@ -92,7 +92,7 @@ function convertUint8Array(base64String) {
 
 
 
-async function notifications(idUser){
+async function notifications(){
 
   if (navigator.serviceWorker){
 
@@ -118,7 +118,7 @@ async function notifications(idUser){
             
             });
             
-        await sendSuscription(subscripcion, idUser);
+        await sendSuscription(subscripcion);
             
          
             console.log('Se ha generado una nueva suscripcion');
@@ -147,11 +147,8 @@ async function notifications(idUser){
 }
 
 
-async function sendSuscription(subscripcion, idUser){
+async function sendSuscription(subscripcion){
 
-  await idUser;
-     
- const data = {subscripcion,idUser};
  
    const consulta = await fetch(RUTA_SERVER, {
    
@@ -166,12 +163,11 @@ async function sendSuscription(subscripcion, idUser){
    
    },
  
-   body :  JSON.stringify(data),
+   body :  JSON.stringify(subscripcion),
    
    });
    
-   //const respuesta = await consulta.text();
-   
+ 
    console.log(data);
    }
  
