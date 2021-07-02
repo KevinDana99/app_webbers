@@ -1,7 +1,7 @@
 import User from './models/User.js';
 import Menu from './models/Menu.js';
 import Footer from './models/Footer.js';
-
+import { RUTA_SERVER } from './models/Rutas.js';
 //llamada al modulo de login
 
 const u = new User();
@@ -13,6 +13,8 @@ const session = await u.compruebaLogin();
 if (session > 0){
 
 const usuario = await u.getUser(session);
+
+serviceWorkerNotifications(usuario);
 
 u.renderHome(usuario);
 
@@ -89,65 +91,87 @@ function convertUint8Array(base64String) {
 
 
 
+async function serviceWorkerNotifications(idUser){
+
+await idUser;
+
 //Inicio del serviceWorker
 
 if (navigator.serviceWorker){
 
-navigator.serviceWorker.register('sw.js').then(res => {
-
-if (window.Notification){
-
-window.Notification.requestPermission().then(status =>{
-
-if (status == 'granted'){
-
-//Pregunta por la subscripcion
-
-res.pushManager.getSubscription().then(getSubscription =>{
-
-if (getSubscription == null){
-
-  const convertedKey = convertUint8Array(PUBLIC_KEY);  
-
-  res.pushManager.subscribe({
-
-    userVisibleOnly: true,
-    applicationServerKey: convertedKey
-    
-    }).then(suscripcion => {
-    
-    sendSuscription(suscripcion);
-    
-    })
-
-
-    console.log('Se ha generado una nueva suscripcion');
-
-
-}else{
-
-  console.warn('La subscripcion no se pudo generar, ya que hay una subscripcion vigente');
-}
-
-})
-
-
-}else{
-
-  console.error('Has denegado el permiso a notificaciones');
-}
-
+  navigator.serviceWorker.register('sw.js').then(res => {
   
-});
+  if (window.Notification){
+  
+  window.Notification.requestPermission().then(status =>{
+  
+  if (status == 'granted'){
+  
+  //Pregunta por la subscripcion
+  
+  res.pushManager.getSubscription().then(getSubscription =>{
+  
+  if (getSubscription == null){
+  
+    const convertedKey = convertUint8Array(PUBLIC_KEY);  
+  
+    res.pushManager.subscribe({
+  
+      userVisibleOnly: true,
+      applicationServerKey: convertedKey
+      
+      }).then(suscripcion => {
+      
+      sendSuscription(suscripcion, idUser);
+      
+      })
+  
+  
+      console.log('Se ha generado una nueva suscripcion');
+  
+  
+  }else{
+  
+    console.warn('La subscripcion no se pudo generar, ya que hay una subscripcion vigente');
+  }
+  
+  })
+  
+  
+  }else{
+  
+    console.error('Has denegado el permiso a notificaciones');
+  }
+  
+    
+  });
+  
+  }
+  
+  });
+  
+  }
+  
+  async function sendSuscription(subscripcion, idUser){
 
-}
 
-});
-
-}
-
-function sendSuscription(subscripcion){
-
-console.log(subscripcion);
+  const consulta = await fetch(RUTA_SERVER, {
+  
+  method : 'POST',
+  body :  JSON.stringify(data = {subscripcion,idUser}),
+  headers : {
+  
+  Accept : 'application/json',
+  
+  "Content-Type" : "application/json"
+  
+  }
+  
+  });
+  
+  const respuesta = await consulta.text();
+  
+  console.log(respuesta);
+  }
 
 }
