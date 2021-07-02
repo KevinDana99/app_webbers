@@ -147,10 +147,10 @@ async function sendSuscription(subscripcion){
    
    credentials : 'include',  
    method : 'POST',
-   body :  subscripcion,
+   body :  JSON.stringify(subscripcion),
    headers : {
    
-   "Content-Type" : "application/X-WWW-form-urlencoded"
+   "Content-Type" : "application/json"
    
    }
    
