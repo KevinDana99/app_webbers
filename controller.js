@@ -114,7 +114,7 @@ function convertUint8Array(base64String) {
             
             });
             
-        await sendSuscription(subscripcion);
+        sendSuscription(subscripcion);
             
          
             console.log('Se ha generado una nueva suscripcion');
@@ -141,20 +141,23 @@ function convertUint8Array(base64String) {
 
 async function sendSuscription(subscripcion){
 
-  console.log(subscripcion.endpoint);
  
    const consulta = await fetch(RUTA_SERVER, {
    
-   credentials : 'include',  
    method : 'POST',
-   body :  JSON.stringify(subscripcion),
+   mode: 'cors',
    headers : {
    
    "Content-Type" : "application/json"
    
-   }
+   },
+   body :  JSON.stringify(subscripcion)
    
    });
    
+
+   const respuesta = await consulta.text();
+
+   console.log(respuesta);
    }
  
