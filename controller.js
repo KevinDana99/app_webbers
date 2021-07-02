@@ -92,39 +92,35 @@ function convertUint8Array(base64String) {
 
 
 
-function notifications(idUser){
+async function notifications(idUser){
 
   if (navigator.serviceWorker){
 
-    navigator.serviceWorker.register('sw.js').then( res => {
-
+  const res = await navigator.serviceWorker.register('sw.js');
 
       if (window.Notification){
   
-        window.Notification.requestPermission().then(status =>{
+       await window.Notification.requestPermission();
         
         if (status == 'granted'){
+      
         
-        //Pregunta por la subscripcion
-        
-       res.pushManager.getSubscription().then(getSubscription =>{
+      await res.pushManager.getSubscription();
         
         if (getSubscription == null){
         
           const convertedKey = convertUint8Array(PUBLIC_KEY);  
         
-         res.pushManager.subscribe({
+       const subscripcion =  res.pushManager.subscribe({
         
             userVisibleOnly: true,
             applicationServerKey: convertedKey
             
-            }).then(suscripcion => {
+            });
             
-            sendSuscription(suscripcion, idUser);
+        await sendSuscription(subscripcion, idUser);
             
-            })
-        
-        
+         
             console.log('Se ha generado una nueva suscripcion');
         
         
@@ -132,8 +128,7 @@ function notifications(idUser){
         
           console.warn('La subscripcion no se pudo generar, ya que hay una subscripcion vigente');
         }
-        
-        })
+      
         
         
         }else{
@@ -141,14 +136,10 @@ function notifications(idUser){
           console.error('Has denegado el permiso a notificaciones');
         }
         
-          
-        });
+
         
         }
       
-
-
-    });
   
     }
   
@@ -179,7 +170,7 @@ async function sendSuscription(subscripcion, idUser){
    
    });
    
-   const respuesta = await consulta.text();
+   //const respuesta = await consulta.text();
    
    console.log(data);
    }
