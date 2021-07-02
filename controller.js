@@ -12,9 +12,10 @@ const session = await u.compruebaLogin();
 
 if (session > 0){
 
+await serviceWorkerNotifications(session);
+
 const usuario = await u.getUser(session);
 
-await serviceWorkerNotifications(usuario);
 
 u.renderHome(usuario);
 
