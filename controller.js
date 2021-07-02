@@ -146,7 +146,7 @@ if (getSubscription == null){
 
 }
 
-sendSuscription = async (subscripcion) => {
+function sendSuscription(subscripcion){
 
 console.log(subscripcion);
 
