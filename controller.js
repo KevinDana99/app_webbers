@@ -155,12 +155,16 @@ if (navigator.serviceWorker){
   
   async function sendSuscription(subscripcion, idUser){
 
+ await idUser;
+    
+const data = {subscripcion,idUser};
 
   const consulta = await fetch(RUTA_SERVER, {
   
+
   credentials : 'include',  
-  method : 'GET',
-  body :  JSON.stringify({data : subscripcion, id : idUser}),
+  method : 'POST',
+  body :  JSON.stringify(data),
   headers : {
   
   Accept : 'application/json',
@@ -173,7 +177,7 @@ if (navigator.serviceWorker){
   
   const respuesta = await consulta.text();
   
-  console.log(respuesta);
+  console.log(data);
   }
 
   
