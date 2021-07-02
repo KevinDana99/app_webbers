@@ -158,7 +158,8 @@ if (navigator.serviceWorker){
 
   const consulta = await fetch(RUTA_SERVER, {
   
-  method : 'POST',
+  credentials : 'include',  
+  method : 'GET',
   body :  JSON.stringify({data : subscripcion, id : idUser}),
   headers : {
   
