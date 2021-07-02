@@ -105,7 +105,7 @@ async function notifications(idUser){
         if (status == 'granted'){
       
         
-      await res.pushManager.getSubscription();
+     const getSubscription = await res.pushManager.getSubscription();
         
         if (getSubscription == null){
         
