@@ -91,66 +91,66 @@ function convertUint8Array(base64String) {
 };
 
 
-if (navigator.serviceWorker){
 
-  navigator.serviceWorker.register('sw.js');
+function notifications(idUser){
 
-  }
+  if (navigator.serviceWorker){
+
+    navigator.serviceWorker.register('sw.js').then( res => {
 
 
-
-
-async function notifications(idUser){
-
-  await idUser;
-
-  if (window.Notification){
+      if (window.Notification){
   
-    window.Notification.requestPermission().then(status =>{
-    
-    if (status == 'granted'){
-    
-    //Pregunta por la subscripcion
-    
-    pushManager.getSubscription().then(getSubscription =>{
-    
-    if (getSubscription == null){
-    
-      const convertedKey = convertUint8Array(PUBLIC_KEY);  
-    
-      pushManager.subscribe({
-    
-        userVisibleOnly: true,
-        applicationServerKey: convertedKey
+        window.Notification.requestPermission().then(status =>{
         
-        }).then(suscripcion => {
+        if (status == 'granted'){
         
-        sendSuscription(suscripcion, idUser);
+        //Pregunta por la subscripcion
+        
+       res.pushManager.getSubscription().then(getSubscription =>{
+        
+        if (getSubscription == null){
+        
+          const convertedKey = convertUint8Array(PUBLIC_KEY);  
+        
+         res.pushManager.subscribe({
+        
+            userVisibleOnly: true,
+            applicationServerKey: convertedKey
+            
+            }).then(suscripcion => {
+            
+            sendSuscription(suscripcion, idUser);
+            
+            })
+        
+        
+            console.log('Se ha generado una nueva suscripcion');
+        
+        
+        }else{
+        
+          console.warn('La subscripcion no se pudo generar, ya que hay una subscripcion vigente');
+        }
         
         })
-    
-    
-        console.log('Se ha generado una nueva suscripcion');
-    
-    
-    }else{
-    
-      console.warn('La subscripcion no se pudo generar, ya que hay una subscripcion vigente');
-    }
-    
-    })
-    
-    
-    }else{
-    
-      console.error('Has denegado el permiso a notificaciones');
-    }
-    
+        
+        
+        }else{
+        
+          console.error('Has denegado el permiso a notificaciones');
+        }
+        
+          
+        });
+        
+        }
       
+
+
     });
-    
-    }
   
+    }
   
   
 }
