@@ -100,7 +100,7 @@ async function notifications(idUser){
 
       if (window.Notification){
   
-       await window.Notification.requestPermission();
+   const status = await window.Notification.requestPermission();
         
         if (status == 'granted'){
       
