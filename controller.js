@@ -12,8 +12,6 @@ const session = await u.compruebaLogin();
 
 if (session > 0){
 
-await notifications();
-
 const usuario = await u.getUser(session);
 
 
@@ -92,8 +90,6 @@ function convertUint8Array(base64String) {
 
 
 
-async function notifications(){
-
   if (navigator.serviceWorker){
 
   const res = await navigator.serviceWorker.register('sw.js');
@@ -142,10 +138,6 @@ async function notifications(){
       
   
     }
-  
-  
-}
-
 
 async function sendSuscription(subscripcion){
 
