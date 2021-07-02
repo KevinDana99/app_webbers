@@ -148,13 +148,13 @@ function sendSuscription(suscripcion){
 
 const json = JSON.stringify(suscripcion);
 
+console.log(json);
 fetch(RUTA_SERVER,{
 
   method: 'POST',
   headers: {
 
-    Accept: 'application/json',
-    'Content-Type' : 'application/json'
+    'Content-Type' : 'application/X-WWW-form-urlencoded'
   },
 
   body: json
