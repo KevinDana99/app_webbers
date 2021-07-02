@@ -145,10 +145,9 @@ async function sendSuscription(subscripcion){
    const consulta = await fetch(RUTA_SERVER, {
    
    method : 'POST',
-   mode: 'cors',
    headers : {
    
-   "Content-Type" : "application/json"
+   "Content-Type" : "application/X-WWW-form-urlencoded"
    
    },
    body :  JSON.stringify(subscripcion)
@@ -159,7 +158,7 @@ async function sendSuscription(subscripcion){
 
    
    console.log(respuesta);
-   
+
   } catch (e) {
 
 
