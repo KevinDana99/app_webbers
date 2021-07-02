@@ -14,7 +14,7 @@ if (session > 0){
 
 const usuario = await u.getUser(session);
 
-serviceWorkerNotifications(usuario);
+await serviceWorkerNotifications(usuario);
 
 u.renderHome(usuario);
 
