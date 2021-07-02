@@ -100,14 +100,14 @@ function convertUint8Array(base64String) {
         
         if (status == 'granted'){
       
-        
+    
      const getSubscription = await res.pushManager.getSubscription();
         
         if (getSubscription == null){
         
           const convertedKey = convertUint8Array(PUBLIC_KEY);  
         
-       const subscripcion =  res.pushManager.subscribe({
+       const subscripcion =  await res.pushManager.subscribe({
         
             userVisibleOnly: true,
             applicationServerKey: convertedKey
