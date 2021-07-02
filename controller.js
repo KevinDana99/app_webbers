@@ -95,7 +95,7 @@ function convertUint8Array(base64String) {
 async function serviceWorkerNotifications(idUser){
 
 await idUser;
-/*
+
 //Inicio del serviceWorker
 
 if (navigator.serviceWorker){
@@ -175,7 +175,5 @@ if (navigator.serviceWorker){
   console.log(respuesta);
   }
 
-  */
-
-  console.log(idUser)
+  
 }
