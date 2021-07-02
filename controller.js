@@ -112,13 +112,13 @@ async function notifications(idUser){
     
     //Pregunta por la subscripcion
     
-    res.pushManager.getSubscription().then(getSubscription =>{
+    pushManager.getSubscription().then(getSubscription =>{
     
     if (getSubscription == null){
     
       const convertedKey = convertUint8Array(PUBLIC_KEY);  
     
-      res.pushManager.subscribe({
+      pushManager.subscribe({
     
         userVisibleOnly: true,
         applicationServerKey: convertedKey
