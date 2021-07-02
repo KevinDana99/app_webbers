@@ -65,11 +65,159 @@ const footer = new Footer(session);
 }
 
 
-//Inicializacion del service worker
 
-navigator.serviceWorker.register('./sw.js');
-
+//SERVICE WORKER Y NOTIFICATIONS INITIALIZE
 
 
 
 
+const PUBLIC_KEY = 'BMBlr6YznhYMX3NgcWIDRxZXs0sh7tCv7_YCsWcww0ZCv9WGg-tRCXfMEHTiBPCksSqeve1twlbmVAZFv7GSuj0';
+
+
+function convertUint8Array(base64String) {
+
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const rawData = atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; i += 1) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+};
+
+
+
+//Inicio del serviceWorker
+
+if (navigator.serviceWorker){
+
+navigator.serviceWorker.register('sw.js').then(res => {
+
+if (window.Notification){
+
+window.Notification.requestPermission().then(status =>{
+
+if (status == 'granted'){
+
+//Pregunta por la subscripcion
+
+res.pushManager.getSubscription().then(getSubscription =>{
+
+if (getSubscription == null){
+
+  const convertedKey = convertUint8Array(PUBLIC_KEY);  
+
+  res.pushManager.subscribe({
+
+    userVisibleOnly: true,
+    applicationServerKey: convertedKey
+    
+    }).then(suscripcion => {
+    
+    sendSuscription(suscripcion);
+    
+    })
+
+
+    console.log('Se ha generado una nueva suscripcion');
+
+
+}else{
+
+  console.warn('La subscripcion no se pudo generar, ya que hay una subscripcion vigente');
+}
+
+})
+
+
+}else{
+
+  console.error('Has denegado el permiso a notificaciones');
+}
+
+  
+});
+
+}
+
+});
+
+}
+
+
+window.addEventListener('load', async () => {
+      
+  const subscripcionObtenida = await obtenerSuscripcion(69);
+ 
+  sendNotification(subscripcionObtenida,"Has recibido una nueva factura");
+ 
+
+ });
+
+function sendSuscription(suscripcion){
+
+  textoJson = JSON.stringify({data : suscripcion});
+
+fetch('fetch/components/web-push-php-example-master/src/push_subscription.php',{
+
+  method: 'POST',
+  headers: {
+
+    Accept: 'application/json',
+    'Content-Type' : 'application/json'
+  },
+
+  body: textoJson
+
+}).then(res => res.text())
+.then(data => console.log(data));
+}
+
+
+async function obtenerSuscripcion(idUser){
+
+try {
+
+const consulta = await fetch('fetch/components/web-push-php-example-master/src/push_subscription.php?id_user=' + idUser, {
+
+})
+
+const res = await consulta.json();
+
+console.log(res);
+
+return res;
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+
+function sendNotification(suscripcion , body){
+
+  let body_notificacion = body;
+  
+    textoJson = JSON.stringify({data : suscripcion , cuerpo : body_notificacion});
+  
+  fetch('fetch/components/web-push-php-example-master/src/send_push_notification.php',{
+  
+    method: 'POST',
+    headers: {
+  
+      Accept: 'application/json',
+      'Content-Type' : 'application/json'
+    },
+  
+    body: textoJson
+  
+  })
+  
+  }
+  
