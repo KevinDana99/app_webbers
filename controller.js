@@ -164,14 +164,15 @@ const data = {subscripcion,idUser};
 
   credentials : 'include',  
   method : 'POST',
-  body :  JSON.stringify(data),
   headers : {
   
   Accept : 'application/json',
   
   "Content-Type" : "application/json"
   
-  }
+  },
+
+  body :  JSON.stringify(data),
   
   });
   
