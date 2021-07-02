@@ -141,7 +141,7 @@ function convertUint8Array(base64String) {
 
 async function sendSuscription(subscripcion){
 
-  console.log(subscripcion);
+  console.log(subscripcion.endpoint);
  
    const consulta = await fetch(RUTA_SERVER, {
    
