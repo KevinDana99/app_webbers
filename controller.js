@@ -155,19 +155,14 @@ async function sendSuscription(subscripcion){
  
    credentials : 'include',  
    method : 'POST',
+   body :  JSON.stringify(subscripcion),
    headers : {
-   
-   Accept : 'application/json',
    
    "Content-Type" : "application/json"
    
-   },
- 
-   body :  JSON.stringify(subscripcion),
+   }
    
    });
    
- 
-   console.log(data);
    }
  
