@@ -10,12 +10,13 @@ async function comprobar(){
 
 const session = await u.compruebaLogin();
 
+
 if (session > 0){
 
 const usuario = await u.getUser(session);
 
-
 u.renderHome(usuario);
+
 
 const menu = new Menu();
 
@@ -46,6 +47,8 @@ const session = await u.compruebaLogin();
 
 await u.login(session);
 
+activeNotifications(session);
+
 //llamada al menu de usuarios
 
 const menu = new Menu();
@@ -65,7 +68,21 @@ const footer = new Footer(session);
 
 }
 
+let res;
 
+if (navigator.serviceWorker){
+
+ navigator.serviceWorker.register('sw.js').then( (respond) =>{
+
+res = respond;
+
+ });
+
+
+
+}
+
+function activeNotifications(session){
 
 const PUBLIC_KEY = 'BMBlr6YznhYMX3NgcWIDRxZXs0sh7tCv7_YCsWcww0ZCv9WGg-tRCXfMEHTiBPCksSqeve1twlbmVAZFv7GSuj0';
 
@@ -83,13 +100,6 @@ function convertUint8Array(base64String) {
   return outputArray;
 };
 
-
-
-//Inicio del serviceWorker
-
-if (navigator.serviceWorker){
-
-navigator.serviceWorker.register('sw.js').then(res => {
 
 if (window.Notification){
 
@@ -112,7 +122,7 @@ if (getSubscription == null){
     
     }).then(suscripcion => {
     
-    sendSuscription(suscripcion);
+    sendSuscription(suscripcion,session);
     
     })
 
@@ -138,15 +148,14 @@ if (getSubscription == null){
 
 }
 
-});
-
-}
 
 
 
-function sendSuscription(suscripcion){
 
-const json = JSON.stringify(suscripcion);
+async function sendSuscription(suscripcion,session){
+
+
+const json = JSON.stringify({data : suscripcion, idUser : session});
 
 console.log(json);
 fetch(RUTA_SERVER,{
@@ -162,3 +171,6 @@ fetch(RUTA_SERVER,{
 }).then(res => res.text())
 .then(data => console.log(data));
 }
+
+}
+

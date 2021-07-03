@@ -83,7 +83,7 @@ self.addEventListener('push', e => {
 
     const sendNotification = body => {
         // you could refresh a notification badge here with postMessage API
-        const title = "Hommer";
+        const title = "Webbers";
 
         return self.registration.showNotification(title, {
             body,
