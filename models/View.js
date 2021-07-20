@@ -132,7 +132,7 @@ const consulta = await fetch(RUTA_PAGOS, {
    body : JSON.stringify(preferencia),
    headers : {
    
-   'Content-Type' : 'application/json'
+   'Content-Type' : 'application/X-WWW-form-urlencoded'
    
    }
    
