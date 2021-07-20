@@ -20,7 +20,8 @@ this.nav.innerHTML = '<div class="btn_nav">Cotizacion</div>';
 
 }else if (this.estado == 'mensajes'){
 
-this.nav.innerHTML = '<div class="btn_nav">Chat</div>';    
+this.nav.innerHTML = '<div class="btn_nav">Actualizaciones</div>';   
+section.innerHTML = 'Las actualizaciones no estan disponibles';
 }
 
 }
