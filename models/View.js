@@ -165,14 +165,7 @@ this.nodos = this.nodos + '</div>';
 
 }else if (this.view.page == 'mensajes'){
 
-this.nodos = this.nodos + 
-
-
-`<div class="box_mensaje">
-
-${this.elementos[e]}
-
-</div>`;
+this.nodos = 'Las actualizaciones no estan disponibles en tu plan actual';
 
 }
 
