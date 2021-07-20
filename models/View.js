@@ -1,5 +1,6 @@
 import Cotizacion from './Cotizacion.js';
 import Pagos from './Pagos.js';
+import {RUTA_PAGOS} from './Rutas.js';
 
 export default class View {
 
@@ -125,7 +126,7 @@ async function loadPreference() {
 
 const preferencia = {item: prefItem, monto : prefMonto, id : prefId}
 
-const consulta = await fetch('fetch/models/Preferencia_pago.php', {
+const consulta = await fetch(RUTA_PAGOS, {
 
    method: 'POST',
    body : JSON.stringify(preferencia),
