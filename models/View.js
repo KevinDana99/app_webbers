@@ -1,4 +1,5 @@
 import Cotizacion from './Cotizacion.js';
+import Pagos from './Pagos.js';
 
 export default class View {
 
@@ -10,6 +11,9 @@ this.clase;
 this.nodos = '';
 this.icoStatus;
 this.icoFactura = '<i class="fas fa-file-alt"></i>';
+this.prefItem = '';
+this.prefMonto = '';
+this.prefId = '';
 
 
 if (this.view.page == 'cotizacion'){
@@ -26,6 +30,7 @@ this.count = this.elementos[3];
 }
 
 }
+
 
 renderView(){
 
@@ -64,6 +69,11 @@ this.icoStatus = '<i class="fas fa-check-circle"></i>';
 
 this.clase = 'factura_vencida';
 this.icoStatus = '<i class="fas fa-times-circle"></i>';
+
+}else if (this.elementos[4][e] == 'EN PROCESO'){
+
+this.clase = 'factura_proceso';
+this.icoStatus = '<i class="fas fa-ellipsis-h"></i>';   
 }
 
 this.nodos = this.nodos + 
@@ -106,8 +116,45 @@ ${this.elementos[4][e]}
 </div>`;
 
 if (this.elementos[4][e] == 'PENDIENTE' || this.elementos[4][e] == 'VENCIDO'){
- 
-this.nodos = this.nodos + '<button class="btn_pagar_factura">Pagar</button>'; 
+   
+const prefItem = 'Factura Webbers';
+const prefMonto = this.elementos[2][e];
+const prefId = this.elementos[6][e];
+
+async function loadPreference() {
+
+const preferencia = {item: prefItem, monto : prefMonto, id : prefId}
+
+const consulta = await fetch('fetch/models/Preferencia_pago.php', {
+
+   method: 'POST',
+   body : JSON.stringify(preferencia),
+   headers : {
+   
+   'Content-Type' : 'application/json'
+   
+   }
+   
+   });
+   
+   const respuesta = await consulta.json();
+
+
+const boton =  document.createElement('script');
+       boton.setAttribute('src','https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js');
+       boton.setAttribute('data-preference-id', `${respuesta.data}`);
+
+  let boxFactura = document.querySelectorAll('.box_factura')
+
+  boxFactura[e].appendChild(boton);
+
+
+}
+
+
+loadPreference();
+
+
 
 }
 
@@ -140,7 +187,14 @@ section.innerHTML = this.nodos + '<div class="box_total_cotizacion"><div class="
 
 }else if (this.view.page == 'facturas'){
 
-section.innerHTML = this.nodos;   
+section.innerHTML = this.nodos;
+
+//recibe los pagos una vez que son realizados
+
+const pagos = new Pagos();
+
+pagos.verify_payment();
+
 
 }else if (this.view.page == 'mensajes'){
 
@@ -153,8 +207,6 @@ const cotizacion = new Cotizacion(this.elementos);
 cotizacion.loadEvents();
 
 }
-
-
 
 
 }

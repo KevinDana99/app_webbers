@@ -77,7 +77,6 @@ view.renderView();
 
 requestApi = async (pagina) =>{
 
-    console.log(this.session);
 const constulta = await fetch(`${RUTA_SERVER}?page=${pagina}&id_user=${this.session}`);
 
 const consulta = await constulta.json();

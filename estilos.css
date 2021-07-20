@@ -565,6 +565,29 @@ align-items: center;
 text-align: center;
 }
 
+.mercadopago-button{
+
+    background-color: rgb(255, 255, 255) !important;
+    color : #2AA2FE !important;
+    font-size: 1.1rem !important;
+}
+
+.mercadopago-button:hover{
+
+    background-color: #2AA2FE !important;
+    border: solid 2px white !important;
+    color : white !important;
+    font-size: 1.1rem !important;
+}
+
+.mercadopago-button:active{
+
+    background-color: #0492FF !important;
+    border: solid 2px white !important;
+    color : white !important;
+    font-size: 1.05rem !important;
+}
+
 
 
 @media (min-width:300px) and (max-width:500px){

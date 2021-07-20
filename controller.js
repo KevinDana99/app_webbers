@@ -2,6 +2,7 @@ import User from './models/User.js';
 import Menu from './models/Menu.js';
 import Footer from './models/Footer.js';
 import { RUTA_SERVER } from './models/Rutas.js';
+
 //llamada al modulo de login
 
 const u = new User();
@@ -173,4 +174,5 @@ fetch(RUTA_SERVER,{
 }
 
 }
+
 
