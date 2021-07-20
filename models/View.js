@@ -130,6 +130,7 @@ const consulta = await fetch(RUTA_PAGOS, {
 
    method: 'POST',
    body : JSON.stringify(preferencia),
+   credentials: 'include',
    headers : {
    
    'Content-Type' : 'application/X-WWW-form-urlencoded'
