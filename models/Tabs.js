@@ -16,7 +16,7 @@ this.nav.innerHTML = '<div class="btn_nav">Pendientes</div><div class="btn_nav">
 
 }else if (this.estado == 'cotizacion'){
 
-this.nav.innerHTML = '<div class="btn_nav">Cotizacion</div>';
+this.nav.innerHTML = '<div class="btn_nav">Plan basico</div><div class="btn_nav">Plan medio</div><div class="btn_nav">Plan premium</div>';
 
 }else if (this.estado == 'mensajes'){
 
