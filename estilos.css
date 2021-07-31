@@ -90,7 +90,8 @@ box-shadow: 1px,1px,1px rgba(68, 68, 68, 0);
  width: 75%;
  height: 100%; 
  min-height: 40px;  
- border-radius: 0em;
+ border-radius: 0.7em;
+ border: solid 1px grey;
  border: none;
 }
 
@@ -98,10 +99,10 @@ box-shadow: 1px,1px,1px rgba(68, 68, 68, 0);
 background-color: #0492FF;
 color: white;
 width: 45%;
-max-width: 150px;
+max-width: 100px;
 height: 23%;
-min-height: 60px;
-max-height: 70px;
+min-height: 40px;
+max-height: 50px;
 border: none;
 border-radius: 0.7em;
 font-size: 1.1rem;
