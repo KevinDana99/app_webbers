@@ -94,8 +94,9 @@ height: 70%;
  height: 100%; 
  min-height: 40px;  
  border-radius: 0.7em;
- border: solid 1px grey;
  border: none;
+ border: solid 1px grey;
+
 }
 
 .btn_login{
