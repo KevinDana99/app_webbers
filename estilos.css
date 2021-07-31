@@ -45,6 +45,13 @@ background-color: rgb(252, 252, 252);
 height: 70%;
 }
 
+.context{
+width: 500px;
+height: 500px;
+background-color: blue;
+
+}
+
 .form{
 
    width: 100%;

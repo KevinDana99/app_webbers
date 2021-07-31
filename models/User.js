@@ -91,7 +91,7 @@ app.innerHTML = `
 </div>
 
 <div class="form">
-
+<div class="context">
 <div class="item_login"><i class="fas fa-user"></i><input type="text" class="input_login" id="user"></div>
 <div class="item_login"><i class="fas fa-lock"></i><input type="text" class="input_login" id="pass"></div>
 
@@ -99,6 +99,7 @@ app.innerHTML = `
 
 <button class="btn_login" id="btnLogin">Acceder</button>
 
+</div>
 </div>
 
 `;
