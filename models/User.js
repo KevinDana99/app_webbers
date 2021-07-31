@@ -84,14 +84,14 @@ renderLogin(){
 
 app.innerHTML = `
 
+
+<div class="form">
+<div class="context">
 <div class="logo_webbers">
 
 <img src="img/logo2021.png" class="logo">
 
 </div>
-
-<div class="form">
-<div class="context">
 <div class="item_login"><i class="fas fa-user"></i><input type="text" class="input_login" id="user"></div>
 <div class="item_login"><i class="fas fa-lock"></i><input type="text" class="input_login" id="pass"></div>
 
