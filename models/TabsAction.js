@@ -22,9 +22,10 @@ this.tabs[i].addEventListener('click', this.startTab);
 
 }
 
-startTab = (e) =>{
+startTab = async(e) =>{
 
 const cotizacion = new Cotizacion();
+
 
 //establece estados graficos de tabs
 
@@ -54,22 +55,22 @@ if (this.estado == 'facturas'){
 
 if (e.target.innerText == 'Plan basico'){
 
-this.planes.push(2500)
+this.planes.push(await cotizacion.precioInicial())
 
-cotizacion.sumaCotizacion({ precio : 2500, plan : this.planes});
+cotizacion.sumaCotizacion({ precio : await cotizacion.precioInicial(), plan : this.planes});
 
 }else if (e.target.innerText == 'Plan medio'){
 
-this.planes.push(4500)
+this.planes.push(await cotizacion.precioInicial())
 
-cotizacion.sumaCotizacion({ precio : 4500, plan : this.planes});
+cotizacion.sumaCotizacion({ precio : await cotizacion.precioInicial(), plan : this.planes});
 
     
 }else if (e.target.innerText == 'Plan premium'){
 
-this.planes.push(6500)
+this.planes.push(await cotizacion.precioInicial())
 
-cotizacion.sumaCotizacion({ precio : 6500, plan : this.planes});
+cotizacion.sumaCotizacion({ precio : await cotizacion.precioInicial(), plan : this.planes});
     
 }
 
