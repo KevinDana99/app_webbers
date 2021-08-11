@@ -30,7 +30,6 @@ const consulta = await fetch(RUTA_SERVER + '?' + this.datos2);
 const respuesta = await consulta.text();
         
 console.log(respuesta)
-debugger
 
 
 if (this.array.length > 5){

@@ -1,6 +1,10 @@
+import {RUTA_SERVER} from './Rutas.js';
+import TabsAction from './TabsAction.js';
+
 export default class Cotizacion{
 
 constructor(elementos){
+
 
 this.money = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -16,7 +20,32 @@ this.totalCotizacionFinal = 0;
 this.totalCotizacionMensual = 0;
 this.elementos = elementos;
 this.partesPagina = document.querySelectorAll('.partes_pagina');
+this.precioPlan = 0;
+this.plan;
+this.tabs = document.querySelectorAll('.btn_nav');
+this.precioInicial = async() => {
+  
+const consulta = await fetch(`${RUTA_SERVER}?planes=get`);
+const resultado = await consulta.json();
+
+for (let i = 0; i < this.tabs.length; i++){
+
+if (this.tabs[i].innerText == 'Plan basico'){
+
+  return await resultado[0];
+
+}else if (this.tabs[i].innerText == 'Plan medio'){
+
+  return await resultado[1];
+}else{
+
+  return await resultado[2];
 }
+
+}
+};
+}
+
 
 loadEvents(){
 
@@ -61,8 +90,35 @@ this.restaCotizacion(e);
 
 }
 
+obtenerPrecioBase = async () =>{
 
-sumaCotizacion(e){
+let cadena = precioMensual.innerText.substring(1);
+let precioBase;
+
+if (cadena.length > 3 ){
+
+cadena = cadena.split(',');
+
+cadena = cadena[0] + cadena[1];
+
+}else if (cadena.length == 0){
+
+
+  cadena = await this.precioInicial();
+
+}
+
+
+precioBase = parseInt(cadena);
+
+
+return precioBase;
+
+}
+
+sumaCotizacion = async(e)=>{
+
+if (e.target) {
 
 for (let i = 0; i < this.elementos[1].length; i++) {
 
@@ -71,19 +127,32 @@ for (let i = 0; i < this.elementos[1].length; i++) {
 
 this.totalCotizacionFinal = (this.totalCotizacionFinal + parseInt(this.elementos[4][i]));
 
-this.totalCotizacionMensual = (this.totalCotizacionMensual + parseInt(this.elementos[5][i]));
-
-
+this.totalCotizacionMensual = (await this.obtenerPrecioBase() + parseInt(this.elementos[5][i]));
 
 
 precioFinal.innerText = this.money.format(this.totalCotizacionFinal);
+
 precioMensual.innerText = this.money.format(this.totalCotizacionMensual);
 
-  }else{
-
   }
+  
+}
 
+}else {
 
+  //e == parametro de tabs
+
+if (e.plan.length > 1){
+
+this.plan = [e.plan[e.plan.length -2], e.plan[e.plan.length -1]];
+
+console.log("valor actual : " + await this.obtenerPrecioBase(), "valor nuevo : " + [this.plan[1]], "valor viejo : " + [this.plan[0]])
+
+this.precioPlan = this.money.format(await this.obtenerPrecioBase() + this.plan[1] - this.plan[0]);
+
+  precioMensual.innerText = this.precioPlan;
+
+}
 
 }
 
@@ -91,7 +160,8 @@ precioMensual.innerText = this.money.format(this.totalCotizacionMensual);
 }
 
 
-restaCotizacion(e){
+restaCotizacion = async(e)=>{
+
 
     for (let i = 0; i < this.elementos[1].length; i++) {
     
@@ -99,19 +169,17 @@ restaCotizacion(e){
       if (this.elementos[1][i] == e.target.firstChild.nextSibling.innerText){
     
     this.totalCotizacionFinal = (this.totalCotizacionFinal - parseInt(this.elementos[4][i]));
-    
-    this.totalCotizacionMensual = (this.totalCotizacionMensual - parseInt(this.elementos[5][i]));
-    
+    this.totalCotizacionMensual = (await this.obtenerPrecioBase() - parseInt(this.elementos[5][i]));
     
     
-    
+  
     precioFinal.innerText = this.money.format(this.totalCotizacionFinal);
     precioMensual.innerText = this.money.format(this.totalCotizacionMensual);
     
       }
     
     }
-    
+  
     
     }
 
