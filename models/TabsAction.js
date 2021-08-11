@@ -55,22 +55,22 @@ if (this.estado == 'facturas'){
 
 if (e.target.innerText == 'Plan basico'){
 
-this.planes.push(await cotizacion.precioInicial())
+this.planes.push(2800)
 
-cotizacion.sumaCotizacion({ precio : await cotizacion.precioInicial(), plan : this.planes});
+cotizacion.sumaCotizacion({ precio : 2800, plan : this.planes});
 
 }else if (e.target.innerText == 'Plan medio'){
 
-this.planes.push(await cotizacion.precioInicial())
+this.planes.push(5500)
 
-cotizacion.sumaCotizacion({ precio : await cotizacion.precioInicial(), plan : this.planes});
+cotizacion.sumaCotizacion({ precio : 5500, plan : this.planes});
 
     
 }else if (e.target.innerText == 'Plan premium'){
 
-this.planes.push(await cotizacion.precioInicial())
+this.planes.push(6900)
 
-cotizacion.sumaCotizacion({ precio : await cotizacion.precioInicial(), plan : this.planes});
+cotizacion.sumaCotizacion({ precio : 6900, plan : this.planes});
     
 }
 
