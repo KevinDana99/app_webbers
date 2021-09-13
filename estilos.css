@@ -65,7 +65,7 @@ height: 70%;
 .context{
     width: 500px;
     height: 800px;
-    box-shadow: 0.2px 1px 7px rgb(218 218 218);
+  
     background-color: rgb(252, 252, 252);
     display: flex;
     flex-direction: column;
